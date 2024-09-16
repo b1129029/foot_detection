@@ -61,17 +61,27 @@ class Ui_Form(object):
     def add_table_data(self):
         # 新增資料到表格
         data = [
-            ["A", "001", " 高翊恩", "男", "172", "n112233"],
+            ["A", "001", "高翊恩", "男", "172", "n112233"],
             ["B", "002", "李子捷", "男", "168", "j112233"],
             ["C", "003", "朱少謙", "男", "150", "c112233"]
         ]
-        
+
         for row in data:
             items = []
-            for item in row:
+            for i, item in enumerate(row):  # 使用 enumerate 來獲取索引和元素
                 table_item = QtGui.QStandardItem(item)
                 table_item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)  # 設置為不可編輯
+                
+                if i == 0:  # 檢查等級 (第一欄)
+                    if item == "A":
+                        table_item.setBackground(QtGui.QColor(255, 0, 0))  # 紅色
+                    elif item == "B":
+                        table_item.setBackground(QtGui.QColor(255, 165, 0))  # 橙色
+                    elif item == "C":
+                        table_item.setBackground(QtGui.QColor(0, 255, 0))  # 綠色
+                
                 items.append(table_item)
+
             self.model.appendRow(items)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
 

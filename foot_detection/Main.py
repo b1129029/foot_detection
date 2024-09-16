@@ -1,5 +1,6 @@
 import os
 from page2 import Ui_Form
+from page3 import page3
 from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtWidgets import QMessageBox , QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QMainWindow, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFrame
 
@@ -166,18 +167,16 @@ class DetailPage(QWidget):
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
-        layout = QVBoxLayout()
 
-        detail_label = QLabel("這裡是詳細資料頁面", self)
-        layout.addWidget(detail_label)
+        # 初始化 UI
+        self.ui = page3()
+        self.ui.setupUi(self)
 
-        back_button = QPushButton("上一頁", self)
-        back_button.clicked.connect(self.go_back)
-        layout.addWidget(back_button)
-
-        self.setLayout(layout)
+        # 連結toolButton到go_back函數
+        self.ui.toolButton.clicked.connect(self.go_back)
 
     def go_back(self):
+        # 切換到查詢頁面
         self.parent.stacked_widget.setCurrentWidget(self.parent.search_page)
 
 if __name__ == "__main__":
