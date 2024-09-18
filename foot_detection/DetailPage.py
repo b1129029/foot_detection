@@ -1,18 +1,23 @@
 import os
 from SQL import view_edema_info
-from page2 import  Ui_Form
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget
 
-class page3(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(800, 450)
+class DetailPage(QWidget):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.setObjectName("Form")
+        self.resize(800, 450)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
-        Form.setSizePolicy(sizePolicy)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(Form)
+        sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
+        self.setSizePolicy(sizePolicy)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
 
         # 左邊佈局開始
@@ -23,7 +28,7 @@ class page3(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setContentsMargins(-1, 0, -1, 0)  # 將上邊距設為0，將按鈕上移
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.toolButton = QtWidgets.QToolButton(Form)
+        self.toolButton = QtWidgets.QToolButton(self)
         self.toolButton.setObjectName("toolButton")
         back_pixmap  = QtGui.QPixmap("source/img/back.png")
         icon = QtGui.QIcon()
@@ -47,9 +52,9 @@ class page3(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
 
         # 左側按鈕
-        self.pushButton_2 = QtWidgets.QPushButton(Form)
+        self.pushButton_2 = QtWidgets.QPushButton(self)
         self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_2.setStyleSheet("""\
+        self.pushButton_2.setStyleSheet("""
             QPushButton {
                 background-color: lightgray;
                 border-radius: 5px;
@@ -68,7 +73,7 @@ class page3(object):
         self.horizontalLayout.addLayout(self.verticalLayout_3)
 
         # 圖片標籤
-        self.label = QtWidgets.QLabel(Form)
+        self.label = QtWidgets.QLabel(self)
         self.label.setObjectName("label")
 
         # 加載圖片
@@ -95,9 +100,9 @@ class page3(object):
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_4.addItem(spacerItem4)
-        self.pushButton_3 = QtWidgets.QPushButton(Form)
+        self.pushButton_3 = QtWidgets.QPushButton(self)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_3.setStyleSheet("""\
+        self.pushButton_3.setStyleSheet("""
             QPushButton {
                 background-color: lightgray;
                 border-radius: 5px;
@@ -120,7 +125,7 @@ class page3(object):
         self.horizontalLayout_3.addLayout(self.verticalLayout_2)
 
         # 分隔線
-        self.line = QtWidgets.QFrame(Form)
+        self.line = QtWidgets.QFrame(self)
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
@@ -129,12 +134,12 @@ class page3(object):
         # 右側佈局
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.tableView = QtWidgets.QTableView(Form)
+        self.tableView = QtWidgets.QTableView(self)
         self.tableView.setObjectName("tableView")
         self.verticalLayout.addWidget(self.tableView)
         # 初始化 QStandardItemModel
         self.model = QtGui.QStandardItemModel()
-        self.model.setHorizontalHeaderLabels(["測量編號", "測量時間", "腳圍"])  # 設置表頭
+        self.model.setHorizontalHeaderLabels(["測量編號", "病患_ID", "測量時間", "腳圍"])  # 設置表頭
         
         # 設置模型到 tableView
         self.tableView.setModel(self.model)
@@ -144,22 +149,19 @@ class page3(object):
         self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
 
-        # 添加測試數據
-        self.add_table_data()
-
         # 添加右侧水平布局
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
 
         # label_2
-        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2 = QtWidgets.QLabel(self)
         self.label_2.setObjectName("label_2")
         self.label_2.setFixedSize(150, 50)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # 置中對齊
         self.horizontalLayout_6.addWidget(self.label_2)
 
         # 测量按钮
-        self.pushButton_4 = QtWidgets.QPushButton(Form)
+        self.pushButton_4 = QtWidgets.QPushButton(self)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -190,16 +192,27 @@ class page3(object):
 
         self.horizontalLayout_3.addLayout(self.verticalLayout)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(self)
+        QtCore.QMetaObject.connectSlotsByName(self)
+        self.toolButton.clicked.connect(self.go_back)
 
-    def add_table_data(self):
+    def go_back(self):
+        # 切換到查詢頁面
+        self.parent.stacked_widget.setCurrentWidget(self.parent.search_page)
+
+    def add_table_data_2(self):
         print('add table')
-        self.tableView.setModel(self.model)
-        ui = Ui_Form()
-        patient_id = str(ui.get_patient_id())
+        search_page = self.parent.search_page    
+        patient_id = str(search_page.get_patient_id())
         print(patient_id)
         data = view_edema_info(patient_id)
+        # 初始化 QStandardItemModel
+        self.model.clear()
+        self.model = QtGui.QStandardItemModel()
+        self.model.setHorizontalHeaderLabels(["測量編號", "病患_ID", "測量時間", "腳圍"])  # 設置表頭
+        
+        # 設置模型到 tableView
+        self.tableView.setModel(self.model)
         for row in data:
             items = []
             for item in row:
@@ -211,7 +224,7 @@ class page3(object):
         
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        self.setWindowTitle(_translate("Form", "Form"))
         self.toolButton.setText(_translate("Form", ""))
         self.pushButton_2.setText(_translate("Form", "◀"))
         self.label.setText(_translate("Form", ""))

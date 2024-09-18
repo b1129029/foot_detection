@@ -15,7 +15,7 @@ def view_edema_info(patient_id):
     conn = sqlite3.connect('db\edema_measure.db')
     cursor = conn.cursor()
     query = '''
-    SELECT `測量編號`, `測量時間`, `腳圍` FROM `水腫程度`
+    SELECT `測量編號`, `病患_ID`, `測量時間`, `腳圍` FROM `水腫程度`
     WHERE `病患_ID` = ?
     '''
     cursor.execute(query, (patient_id,))
