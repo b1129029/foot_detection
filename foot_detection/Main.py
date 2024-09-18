@@ -3,8 +3,7 @@ from LoginPage import LoginPage
 from SearchPage import SearchPage
 from DetailPage import DetailPage
 from SQL import view_edema_info
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox , QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QMainWindow, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFrame
+from PyQt5.QtWidgets import  QApplication, QMainWindow, QStackedWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):

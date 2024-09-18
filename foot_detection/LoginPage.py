@@ -1,6 +1,6 @@
 import os
 from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox , QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QMainWindow, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFrame
+from PyQt5.QtWidgets import QMessageBox , QSpacerItem, QSizePolicy, QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFrame
 
 class LoginPage(QWidget):
     def __init__(self, parent):
