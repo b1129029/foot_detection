@@ -1,5 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import os
+from SQL import view_edema_info
+from page2 import  Ui_Form
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class page3(object):
     def setupUi(self, Form):
@@ -74,8 +76,6 @@ class page3(object):
         img_dir = os.path.join(base_dir, 'source', 'img')
         image = os.path.join(img_dir, 'result.jpg')
         pixmap = QtGui.QPixmap(image)
-        if pixmap.isNull():
-            print("圖片加載失敗，請檢查路徑是否正確")
         
         # 調整 QLabel 的大小以適應圖片
         self.label.setPixmap(pixmap)
@@ -134,7 +134,7 @@ class page3(object):
         self.verticalLayout.addWidget(self.tableView)
         # 初始化 QStandardItemModel
         self.model = QtGui.QStandardItemModel()
-        self.model.setHorizontalHeaderLabels(["等級", "病患_ID", "名字", "性別", "身高", "病患_LineID"])  # 設置表頭
+        self.model.setHorizontalHeaderLabels(["測量編號", "測量時間", "腳圍"])  # 設置表頭
         
         # 設置模型到 tableView
         self.tableView.setModel(self.model)
@@ -146,7 +146,6 @@ class page3(object):
 
         # 添加測試數據
         self.add_table_data()
-        
 
         # 添加右侧水平布局
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
@@ -167,7 +166,7 @@ class page3(object):
         sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
         self.pushButton_4.setSizePolicy(sizePolicy)
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_4.setStyleSheet("""\
+        self.pushButton_4.setStyleSheet("""
             QPushButton {
                 background-color: lightgray;
                 border-radius: 5px;
@@ -195,20 +194,21 @@ class page3(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def add_table_data(self):
-        # 新增資料到表格
-        data = [
-            ["A", "001", " 高翊恩", "男", "172", "n112233"],
-            ["B", "002", "李子捷", "男", "168", "j112233"],
-            ["C", "003", "朱少謙", "男", "150", "c112233"]
-        ]
-        
+        print('add table')
+        self.tableView.setModel(self.model)
+        ui = Ui_Form()
+        patient_id = str(ui.get_patient_id())
+        print(patient_id)
+        data = view_edema_info(patient_id)
         for row in data:
             items = []
             for item in row:
-                table_item = QtGui.QStandardItem(item)
+                table_item = QtGui.QStandardItem(str(item))
                 table_item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)  # 設置為不可編輯
                 items.append(table_item)
             self.model.appendRow(items)
+        self.model.layoutChanged.emit()
+        
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))

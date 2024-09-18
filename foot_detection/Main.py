@@ -1,12 +1,14 @@
 import os
 from page2 import Ui_Form
 from page3 import page3
+from SQL import view_edema_info
 from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtWidgets import QMessageBox , QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QMainWindow, QWidget, QStackedWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFrame
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.patient_id = None
         self.setWindowTitle("腳部水腫觀測系統")
         self.resize(1600, 900)
 
@@ -159,9 +161,9 @@ class SearchPage(QWidget):
     def handle_table_double_click(self, index):
         # 處理雙擊事件的邏輯
         self.row = index.row()  # 將雙擊的行索引存儲到 self.row
-        print(f"雙擊了第 {self.row + 1} 行")  # 這裡可以加入處理雙擊事件的具體邏輯
+        print(self.row)
+        self.ui.add_table_data_2()
         self.show_detail()
-    
 
 class DetailPage(QWidget):
     def __init__(self, parent):
@@ -171,9 +173,9 @@ class DetailPage(QWidget):
         # 初始化 UI
         self.ui = page3()
         self.ui.setupUi(self)
-
         # 連結toolButton到go_back函數
         self.ui.toolButton.clicked.connect(self.go_back)
+        #self.ui.add_table_data()
 
     def go_back(self):
         # 切換到查詢頁面
