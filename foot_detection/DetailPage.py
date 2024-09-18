@@ -230,5 +230,5 @@ class DetailPage(QWidget):
         self.label.setText(_translate("Form", ""))
         self.pushButton_3.setText(_translate("Form", "▶"))
         self.pushButton_4.setText(_translate("Form", "測量"))
-        doctor_name = ("扶老二")
+        doctor_name = ("")
         self.label_2.setText(_translate("Form", "主治醫師: " + doctor_name))

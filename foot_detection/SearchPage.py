@@ -64,6 +64,7 @@ class SearchPage(QWidget):
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
+        self.pushButton.clicked.connect(self.search_buttob_clicked)
         self.tableView.doubleClicked.connect(self.handle_table_double_click)
     
     def show_detail(self):
